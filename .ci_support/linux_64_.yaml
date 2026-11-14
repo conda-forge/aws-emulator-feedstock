@@ -14,6 +14,8 @@ channel_targets:
 - conda-forge main
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma10
+github_actions_labels:
+- namespace-profile-16cpu-on-linux-64
 rust_compiler:
 - rust
 target_platform:

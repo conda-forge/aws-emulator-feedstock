@@ -32,7 +32,7 @@ jobs:
             os: ubuntu
             pagefile_size: 0
             resize_partitions: False
-            runs_on: ['ubuntu-latest']
+            runs_on: ['namespace-profile-16cpu-on-linux-64;container.privileged=true;container.mount-scratch=true']
             tools_install_dir: ~/miniforge3
     steps:
 
