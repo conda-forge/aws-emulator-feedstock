@@ -22,6 +22,13 @@ build:
       # Stamp the release version, otherwise `--version` reports `0.1.0-dev`.
       EMULATOR_VERSION: ${{ version }}
     content:
+      - if: build_platform != target_platform
+        then:
+          # cc-rs falls back to CFLAGS (which carries the target's flags, e.g.
+          # `-mabi=lp64d`) when compiling C/asm for build scripts on the build
+          # machine. Give the build machine its own flags instead.
+          - export CFLAGS_x86_64_unknown_linux_gnu="-O2"
+          - export CXXFLAGS_x86_64_unknown_linux_gnu="-O2"
       - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path core/router
       - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
 
