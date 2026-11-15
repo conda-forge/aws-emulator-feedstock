@@ -22,6 +22,19 @@ build:
       # Stamp the release version, otherwise `--version` reports `0.1.0-dev`.
       EMULATOR_VERSION: ${{ version }}
     content:
+      - if: build_platform != target_platform
+        then:
+          # cc-rs also applies CFLAGS/CXXFLAGS (the target's flags, e.g.
+          # `-mabi=lp64d`) when compiling C/asm for build scripts on the build
+          # machine. Restrict them to target compiles via TARGET_CFLAGS/CXXFLAGS.
+          - export TARGET_CFLAGS="${CFLAGS}" TARGET_CXXFLAGS="${CXXFLAGS}"
+          - unset CFLAGS CXXFLAGS
+      - if: target_platform == "linux-aarch64"
+        then:
+          # The binary's .text exceeds the +-128 MB range of aarch64 branches.
+          # GNU ld fails with `relocation truncated to fit: R_AARCH64_CALL26`
+          # (after hours); lld inserts range-extension thunks.
+          - export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-C link-arg=-fuse-ld=lld"
       - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path core/router
       - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
 
@@ -32,6 +45,8 @@ requirements:
     - ${{ compiler('rust') }}
     - cargo-bundle-licenses
     - cargo-auditable
+    - if: target_platform == "linux-aarch64"
+      then: lld
 
 tests:
   - script:
