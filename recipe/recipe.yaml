@@ -42,6 +42,8 @@ requirements:
   build:
     - ${{ stdlib('c') }}
     - ${{ compiler('c') }}
+    # openh264-sys2 compiles bundled C++ sources
+    - ${{ compiler('cxx') }}
     - ${{ compiler('rust') }}
     - cargo-bundle-licenses
     - cargo-auditable
