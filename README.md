@@ -1,7 +1,7 @@
 About aws-emulator-feedstock
 ============================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/aws-emulator-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/fs-feedstock/blob/main/LICENSE.txt)
 
 Home: https://docs.aws.amazon.com/emulator/latest/userguide/what-is-service.html
 
@@ -25,8 +25,8 @@ Current build status
 <table><tr>
     <td>GitHub Actions</td>
     <td>
-      <a href="https://github.com/conda-forge/aws-emulator-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/aws-emulator-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      <a href="https://github.com/conda-forge/fs-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/fs-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
       </a>
     </td>
   </tr>
