@@ -35,7 +35,10 @@ build:
           # GNU ld fails with `relocation truncated to fit: R_AARCH64_CALL26`
           # (after hours); lld inserts range-extension thunks.
           - export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-C link-arg=-fuse-ld=lld"
-      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path core/router
+      # rustc compiling the aws-emulator-router crate (pulls in all ~440 service
+      # crates) gets OOM-killed on the 64 GB runners with the default 16 codegen
+      # units; fewer units means fewer LLVM modules in memory at once.
+      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path core/router --config 'profile.release.package.aws-emulator-router.codegen-units=4'
       - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
 
 requirements:
