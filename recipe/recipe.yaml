@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.0.634"
+  version: "1.0.635"
 
 package:
   name: aws-emulator
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://github.com/aws/aws-emulator/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 93864b81c5cc72ccfe05154311359eb1502f962e60aea585aafe9c3767e1c76c
+  sha256: eb5f9f33379bf909c5ede118476f03439ae6d92037fbec19c06eb35875ee7e3d
 
 build:
   number: 0
